@@ -13,7 +13,15 @@ def billions(x, pos):
 
 matplotlib.rcParams.update({'font.size': 12})
 
-with open('D:\Desktop\FaRNN\\rnn-comparison-batchsize100.csv') as f:
+datafilepath = 'D:\Desktop\FaRNN\\'
+batchsize = '1'
+datafilename = 'lstm-latency-opt-batch' + batchsize
+yaxis_legend = 'Execution time (ms)'
+xaxis_legend = 'Hidden dimension size'
+title = 'Batch size ' + batchsize
+# yaxis_legend = 'Throughput (Gigaops/sec)'
+
+with open(datafilepath + datafilename + '.csv') as f:
     configs = f.readline().replace('\n', '').split(',')[1:]
     data = np.loadtxt(f, delimiter=',', dtype=float)
     x = data[:, :1]
@@ -25,11 +33,9 @@ with open('D:\Desktop\FaRNN\\rnn-comparison-batchsize100.csv') as f:
     # plt.xticks([64, 128, 256, 512, 1024])
     plt.xticks(x)
     plt.xscale('log', basex=2)
-    plt.xlabel('Hidden dimension size')
-    plt.ylabel('Execution time (ms)')
-    # plt.ylabel('Throughput (Gigaops/sec)')
-    plt.title('Batch size 100')
-    # plt.title('Batch size 10')
+    plt.xlabel(xaxis_legend)
+    plt.ylabel(yaxis_legend)
+    plt.title(title)
     plt.legend()
-    plt.savefig('D:\Desktop\FaRNN\\rnn-comparison-batchsize100.png')
+    plt.savefig(datafilepath + datafilename + '.png')
     plt.show()
